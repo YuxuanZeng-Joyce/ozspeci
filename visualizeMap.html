@@ -6,6 +6,10 @@
 	<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 	<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.2.1/mapbox-gl.js'></script>
 	<link rel="stylesheet" href="assets/css/main.css" />
+	<link rel="stylesheet" href="assets/css/loader.css" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	
 	<!-- <link rel="stylesheet" href="assets/css/suburbsearch.css" /> -->
 	<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.2.1/mapbox-gl.css' rel='stylesheet' />
@@ -17,7 +21,7 @@
 	</style>
 </head>
 <body>
-
+	<div class="modal"><!-- Place at bottom of page --></div>
 	<!-- Header -->
 		<header id="header">
 			<div class="inner">
@@ -26,8 +30,8 @@
 					<a href="index.html">Home</a>
 					<a href="generic.html">About us</a>
 					<a href="newsfeed.html">News Feed</a>
-					<a href="report.html">Report a Sighting</a>
-					<a href="map.html">Maps</a>
+					<a href="photoRecognition.html">Photo Recognition</a>
+					<a href="test.html">Maps</a>
 
 				</nav>
 			</div>
@@ -50,8 +54,9 @@
 		</style>
 
 	<div id='map'></div>
-
+	<script src="assets/js/jquery.min.js"></script>
  	<script src = "assets/js/visualizeMap.js"></script>
+ 	<script src="assets/js/loader.js"></script>
  	
  	
 </body>

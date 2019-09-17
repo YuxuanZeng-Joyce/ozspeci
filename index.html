@@ -1,14 +1,25 @@
+<!-- Start of our home page -->
 <!DOCTYPE HTML>
-
+<!-- Start of our html tag in the page -->
 <html>
+	<!-- Start of our head tag in the page -->
 	<head>
+		<!-- Head tag contains important meta links and tags. -->
 		<title>Oz Species Check</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<link rel="stylesheet" href="assets/css/suburbsearch.css" />
+
+		<link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
+		<script src="assets/js/placesApi.js"></script>
 	</head>
+	<!-- Style tag contains main css related to our page. -->
 	<style>
+		body {
+		position: relative;
+		padding-top: 5em;
+	}
 .one{
 	background-image: url('images/bc.jpg');
 	/* Full height */
@@ -62,8 +73,8 @@ p{
 						<a href="index.html">Home</a>
 						<a href="generic.html">About us</a>
 						<a href="newsfeed.html">News Feed</a>
-						<a href="report.html">Report a Sighting</a>
-						<a href="map.html">Maps</a>
+						<a href="photoRecognition.html">Photo Recognition</a>
+						<a href="test.html">Maps</a>
 
 					</nav>
 				</div>
@@ -92,34 +103,42 @@ p{
 			<!-- four -->
 
 		<section id="four">
-			<br><br><br>
+			<br>
 			<div class="inner">
 				<header>
 					<center>
-					<h2>Search for spotted animals in various Suburbs in Victoria</h2>
+					<h2>Search for spotted animals near your Location</h2>
 					<hr>
 					</center>
-					<br>
+					
 				</header>
 				<center>
-				<div class="dropdown">
-					<button onclick="myFunction()" class="dropbtn">Click Here!!</button>
 
-					<div id="myDropdown" class="dropdown-content">
-						<input type="text" placeholder="Search for Suburbs.." id="myInput" onkeyup="filterFunction()">
-						<a href="#">Caulfield</a>
-						<a href="#">Docklands</a>
-						<a href="#">Clayton</a>
-						<a href="#">Tarneit</a>
-						<a href="#">Tullamarine</a>
+					<div id="locationField" >
+					
+    <input id="autocomplete" placeholder="Enter your address......" type="text"  />
+   <!--  <span id="searchclear" class="glyphicon glyphicon-remove-circle"></span> -->
+  </div>
+				<!-- <div class="dropdown">
+					<button onclick="myFunction()" class="dropbtn">Search Suburbs!!</button>
+
+					<div id="myDropdown" class="dropdown-content" style="height:300px">
+						<div class="form-group has-search">
+							<span class="fa fa-search form-control-feedback"></span>
+						<input type="text" placeholder="Search for Suburbs.." id="myInput" onkeyup="fetchSuburbsFromApi()">
+						 <a href="#">Caulfield</a>
+						<a href="#">Geelong</a>
+						<a href="#">Richmond</a>
+						<a href="#">Ballarat</a>
+						<a href="#">Tulamarine</a>
 						<a href="#">Doncaster</a>
-						<a href="#">Lorne</a>
-					</div>
-				</div>
+						<a href="#">Glen Huntly</a> -->
+					<!-- </div> -->
+				<!-- </div> --> 
 			</center>
 			</div>
 		</section>
-		<br><br><br><br><br><br>
+		<br><br><br><br><br><br><br><br><br>
 
 		<!-- One -->
 		<div class="one">
@@ -144,7 +163,7 @@ p{
 
 
 
-		<!-- <!-- Two -->
+		<!--  Two -->
 			<!-- <section id="two">
 				<div class="inner">
 					<article>
@@ -153,7 +172,7 @@ p{
 								<h3>Pellentesque adipis</h3>
 							</header>
 							<div class="image fit">
-								<img src="images/pic01.jpg" alt="" />
+								<img src="images/pic01.jpg" S>
 							</div>
 							<p>Cumsan mollis eros. Pellentesque a diam sit amet mi magna ullamcorper vehicula. Integer adipiscin sem. Nullam quis massa sit amet lorem ipsum feugiat tempus.</p>
 						</div>
@@ -265,6 +284,9 @@ p{
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
 			<script src="assets/js/suburbsearch.js"></script>
+			<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOG-egQI6PJ2n68TbXj0P2VSm1rJ0-rHQ&libraries=places&callback=initAutocomplete" async defer></script>
+
+		<script src="assets/js/placesApi.js"></script>
 
 	</body>
 </html>

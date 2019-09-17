@@ -1,14 +1,92 @@
 <!DOCTYPE html>
 <html>
+<head>
+		<title>Oz Species Check</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" href="assets/css/suburbsearch.css" />
+	</head>
+	<style>
+.one{
+	background-image: url('images/bc.jpg');
+	/* Full height */
+ height: 100%;
+
+ /* Center and scale the image nicely */
+ background-position: right;
+ background-repeat: no-repeat;
+ background-size: cover;
+}
+p{
+	color: white;
+}
+.arrow {
+  box-sizing: border-box;
+  height: 5vw;
+  width: 5vw;
+  border-style: solid;
+  border-color: white;
+  border-width: 0px 1px 1px 0px;
+  transform: rotate(45deg);
+  transition: border-width 150ms ease-in-out;
+}
+
+.arrow:hover {
+  border-bottom-width: 4px;
+  border-right-width: 4px;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0e242d;
+  height: 100vh;
+}
+
+#full {
+  height: 100vh;
+  background-color: #256347;
+}
+
+	</style>
 <body>
 
-<h2>The XMLHttpRequest Object</h2>
+	<!-- Header -->
+		<header id="header">
+				<div class="inner">
+					<a href="index.html" class="logo">Oz Species Check</a>
+					<nav id="nav">
+						<a href="index.html">Home</a>
+						<a href="generic.html">About us</a>
+						<a href="newsfeed.html">News Feed</a>
+						<a href="photoRecognition.html">Photo Recognition</a>
+						<a href="test.html">Maps</a>
 
-<p id="demo">Let AJAX change this text.</p>
+					</nav>
+				</div>
+			</header>
+			<a href="#menu" class="navPanelToggle"><span class="fa fa-bars"></span></a>
 
-<button type="button" onclick="loadDoc()">Change Content</button>
-<script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
-<script src="assets/js/test.js"></script>
+
+		<!-- Banner -->
+			<section id="banner">
+				<div class="inner">
+					<h1>Fully Maps Based Application Coming Soon.......<span><br><br>
+					</span></h1>
+					<ul class="actions">
+						<!--<li><a href="map.html" class="button alt">Get Started</a></li>-->
+					</ul>
+					<center>
+						
+					<a data-scroll href="#four">
+    			<div class="arrow"></div>
+  				</a>
+				</center>
+				</div>
+			</section>
+
 
 </body>
 </html>

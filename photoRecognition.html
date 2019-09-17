@@ -1,0 +1,268 @@
+<!--
+Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+PDX-License-Identifier: MIT-0 (For details, see https://github.com/awsdocs/amazon-rekognition-developer-guide/blob/master/LICENSE-SAMPLECODE.)
+-->
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- <script src="aws-cognito-sdk.min.js"></script>
+  <script src="amazon-cognito-identity.min.js"></script> -->
+  <script src="https://sdk.amazonaws.com/js/aws-sdk-2.16.0.min.js"></script>
+
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+  <!-- <script src="./app.js"></script> -->
+  <meta charset="UTF-8">
+  <title>Oz Species Check</title>
+  <style>
+    body {
+		position: relative;
+		padding-top: 5em;
+	}
+  .hiddenFileInput > input{
+  height: 100%;
+  width: 100;
+  opacity: 0;
+  cursor: pointer;
+}
+.hiddenFileInput{
+  /*border: 1px solid #ccc;*/
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+  overflow: hidden;
+  background:url('images/icon-upload.png') no-repeat center;
+}
+
+
+</style>
+</head>
+
+<body>
+  
+  <!-- Header -->
+    <header id="header">
+      <div class="inner">
+        <a href="index.html" class="logo">Oz Species Check</a>
+        <nav id="nav">
+          <a href="index.html">Home</a>
+          <a href="generic.html">About us</a>
+          <a href="newsfeed.html">News Feed</a>
+          <a href="photoRecognition.html">Photo Recognition</a>
+          <a href="test.html">Maps</a>
+
+        </nav>
+      </div>
+    </header>
+    <a href="#menu" class="navPanelToggle"><span class="fa fa-bars"></span></a>
+
+    <section id="main" >
+
+      <div class="inner">
+    <H2>Upload an image to detect species</H2>
+    
+    <span class="hiddenFileInput">
+    <input type="file" name="fileToUpload" id="fileToUpload" accept="image/*" >
+</span>
+  
+<div class="row uniform 50%">
+
+                  <div class="5u 12u$(xsmall)">
+                    <span class="image fit">
+                    <img id="uploadedImage" /></span>
+                  </div>
+                  <div class="7u$ 12u$(xsmall)">
+                    <div id="onlyResult>">
+                    <div id="chartContainer" style="height: 300px; width: 80%;"></div>
+                    <H2 id="opResult"></H2>
+                  </div>
+                  </div>
+                </div>
+
+
+ <!--  <section class="6u 12u$(xsmall)">
+    <div class="image fit">
+  <img id="uploadedImage" />
+</div>
+</section>
+<section class="6u 12u$(xsmall)">
+<div id="chartContainer" style="height: 300px; width: 70%;"></div>
+</section> -->
+  
+  
+</div>
+</section>
+
+<script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+  <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+<script>
+  document.getElementById("fileToUpload").addEventListener("change", function (event) {
+    ProcessImage();
+  }, false);
+
+
+  //Calls DetectFaces API and shows estimated ages of detected faces
+  // function DetectFaces(imageData) {
+  //   AWS.region = "us-east-1";
+  //   var rekognition = new AWS.Rekognition();
+  //   var params = {
+  //     Image: {
+  //       Bytes: imageData
+  //     },
+  //     Attributes: [
+  //       'ALL',
+  //     ]
+  //   };
+  //   rekognition.detectFaces(params, function (err, data) {
+  //     if (err) console.log(err, err.stack); // an error occurred
+  //     else {
+  //      var table = "<table><tr><th>Low</th><th>High</th></tr>";
+  //       // show each face and build out estimated age table
+  //       for (var i = 0; i < data.FaceDetails.length; i++) {
+  //         table += '<tr><td>' + data.FaceDetails[i].AgeRange.Low +
+  //           '</td><td>' + data.FaceDetails[i].AgeRange.High + '</td></tr>';
+  //       }
+  //       table += "</table>";
+  //       document.getElementById("opResult").innerHTML = table;
+  //     }
+  //   });
+  // }
+  //Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+//PDX-License-Identifier: MIT-0 (For details, see https://github.com/awsdocs/amazon-rekognition-developer-guide/blob/master/LICENSE-SAMPLECODE.)
+
+  function ProcessImage() {
+    AnonLog();
+    var control = document.getElementById("fileToUpload");
+    var file = control.files[0];
+    var finalData;
+    var chart;
+    var dataPoints = [];
+
+    document.getElementById("uploadedImage").src = URL.createObjectURL(file)
+    document.getElementById("uploadedImage").height="300"
+    
+    var reader = new FileReader();
+    reader.onload = (function (theFile) {
+      return function (e) {
+        // Call Rekognition
+        AWS.region = "ap-southeast-2";
+        // document.getElementById("uploadedImage").src = e.target.result;
+        var rekognition = new AWS.Rekognition();
+        var params = {
+          Image: {
+            
+            Bytes: e.target.result
+          },
+          MaxLabels: 5,
+          MinConfidence: 70
+        };
+        rekognition.detectLabels(params, function(err, data) {
+        if (err) {
+          document.getElementById("opResult").innerHTML = "Sorry, unable to connect to server.";
+          console.log(err, err.stack); // an error occurred
+        }
+        else {
+          //finalData = JSON.stringify(data)
+          //document.getElementById("opResult").innerHTML = JSON.stringify(data);
+          var flag=false;
+          for ( var i = 0; i < data.Labels.length; i++){
+            if (data.Labels[i].Name == "Animal"){
+              flag=true;
+              break;
+            }
+            else{
+              flag=false;
+              /*document.getElementById("opResult").innerHTML = "Please upload Image relate to Animals.Thanks for visiting!!"*/
+              
+              }
+          }
+          if (flag==true){
+          drawBarGraph(data);
+          checkDangerous(data);
+          
+            }
+          else{
+            alert("Please upload Image related to Animals.Thanks for visiting!!")
+            
+            } 
+          }
+        });
+      };
+    })(file);
+    reader.readAsArrayBuffer(file);
+  }
+  //Provides anonymous log on to AWS services
+  function AnonLog() {
+
+    // Configure the credentials provider to use your identity pool
+    AWS.config.region = 'ap-southeast-2'; // Region
+    AWS.config.credentials = new AWS.Credentials('AKIAQ6ZE5CCI2SUQXIK2', 'Sgd5+IASxs1lV8PjvLwnPQqUdmOFGbWj+hJRnX4u', sessionToken = null);
+    
+    AWS.config.credentials.get(function () {
+      // Credentials will be available when this function is called.
+      var accessKeyId = AWS.config.credentials.accessKeyId;
+      var secretAccessKey = AWS.config.credentials.secretAccessKey;
+      var sessionToken = AWS.config.credentials.sessionToken;
+    });
+  }
+
+function drawBarGraph(finalData){
+  //chart.destroy()
+  var finalPlotData=[]  
+  console.log(finalData)
+  var dict=[];
+  for ( var i = 0; i < finalData.Labels.length; i++) {
+    var obj = finalData.Labels[i];
+    
+    dict.push({y:parseInt(obj.Confidence),label:obj.Name});
+    
+    finalPlotData.push(dict);
+  }
+    
+  var chart = new CanvasJS.Chart("chartContainer", {
+      animationEnabled: true,
+    theme: "light2",
+      title: {
+         text: "Image Recognition Confidence Values"
+      },
+      axisY: {
+    title: "Confidence(%)",
+    suffix: "%",
+    includeZero: false
+      },
+    axisX: {
+    title: "Recognised Results "
+      },
+    axisYType: "secondary",
+        
+      data: [{
+          type: "column",
+          name: "Recognition System Results",
+    
+    
+            dataPoints: finalPlotData[0] 
+    }]
+        
+    });
+    chart.render();
+  }
+
+  
+  function checkDangerous(data)
+  {for ( var i = 0; i < data.Labels.length; i++){
+    if ((data.Labels[i].Name == "Spider") || (data.Labels[i].Name == "Snake"))
+    {
+      document.getElementById("opResult").innerHTML = 'Dangerous! can indicate a potentially negative action.';
+    }
+  }
+
+  }
+
+
+
+
+  
+</script>
+</body>
+</html>
